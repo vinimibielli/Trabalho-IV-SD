@@ -1,0 +1,73 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Pichau/Downloads/Trabalho-IV-SD
+vedge_detector
+Z1 !s110 1686974356
+!i10b 1
+!s100 aUV^@CX:@U=RhVBk^L9_C0
+IzX4g8=DbQDN_[=i;3oH2^1
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1684409569
+8edge_detector.v
+Fedge_detector.v
+L0 1
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1686974356.000000
+!s107 edge_detector.v|
+!s90 -reportprogress|300|-work|work|edge_detector.v|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+vtb
+R1
+!i10b 1
+!s100 _O<Z5DlU0LfM1mZFcK5En2
+I5OcNE=ZnIQAR^_Se:VRTj0
+R2
+R0
+w1686974093
+8tb.v
+Ftb.v
+L0 3
+R3
+r1
+!s85 0
+31
+R4
+!s107 tb.v|
+!s90 -reportprogress|300|-work|work|tb.v|
+!i113 1
+R5
+R6
+vtop
+R1
+!i10b 1
+!s100 YAh^4<V^Fb;1koKkH?cMU0
+IN@C@1L<0c9hhib;m?jJ5i3
+R2
+R0
+w1686974354
+8top.v
+Ftop.v
+L0 1
+R3
+r1
+!s85 0
+31
+R4
+!s107 top.v|
+!s90 -reportprogress|300|-work|work|top.v|
+!i113 1
+R5
+R6
