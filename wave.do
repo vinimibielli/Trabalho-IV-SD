@@ -12,6 +12,7 @@ add wave -noupdate /tb/DUT/data_b
 add wave -noupdate -divider {DADOS}
 add wave -noupdate /tb/DUT/mantissa_a
 add wave -noupdate /tb/DUT/mantissa_b
+add wave -noupdate /tb/DUT/mantissa_b_inv
 add wave -noupdate /tb/DUT/expoente_a
 add wave -noupdate /tb/DUT/expoente_b
 add wave -noupdate /tb/DUT/expoente_calculo
@@ -19,8 +20,10 @@ add wave -noupdate /tb/DUT/mantissa_soma
 add wave -noupdate /tb/DUT/erro
 add wave -noupdate /tb/DUT/mantissa_o
 add wave -noupdate /tb/DUT/expoente_o
+add wave -noupdate /tb/DUT/sinal_o
 add wave -noupdate -divider {SAÍDA}
 add wave -noupdate /tb/DUT/data_o
+add wave -noupdate /tb/DUT/complemento
 
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ns} 0}
