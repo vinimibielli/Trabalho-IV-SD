@@ -104,37 +104,7 @@ begin
             begin
                 mantissa_b[23] <= 1'b0;
             end
-        end
-        2'd1 : begin //EXECUÇÃO DA PRÉ-SOMA
             if(complemento == 1'b1)
-            begin
-                if(expoente_a > expoente_b)
-                begin
-                    mantissa_b <= (~mantissa_b + 1'b1) >> expoente_calculo;
-                end
-                else
-                begin
-                    mantissa_a <= (~mantissa_a + 1'b1) >> expoente_calculo;
-                end
-            end
-            else
-            begin
-            if(expoente_a > expoente_b)
-            begin
-                mantissa_b <= mantissa_b >> expoente_calculo;
-            end
-            else
-            begin
-                mantissa_a <= mantissa_a >> expoente_calculo;
-            end
-            end
-        end
-        2'd2 : begin //SOMA
-            mantissa_soma <= mantissa_a + mantissa_b;   
-        
-        end
-        2'd3 : begin //AJUSTE DOS ERROS
-        if(complemento == 1'b1)
             begin   
                     if(mantissa_a > mantissa_b)
                     begin
@@ -149,6 +119,41 @@ begin
             begin           
             sinal_o <= data_a[31];
             end
+        end
+        2'd1 : begin //EXECUÇÃO DA PRÉ-SOMA
+            if(complemento == 1'b1)
+            begin
+                if(expoente_a > expoente_b)
+                begin
+                    mantissa_b <= (~mantissa_b + 1'b1) >> expoente_calculo;
+                   // erro <= data_b[expoente_calculo];
+                end
+                else
+                begin
+                    mantissa_a <= (~mantissa_a + 1'b1) >> expoente_calculo;
+                    //erro <= data_a[expoente_calculo];
+                end
+            end
+            else
+            begin
+            if(expoente_a > expoente_b)
+            begin
+                mantissa_b <= mantissa_b >> expoente_calculo;
+                //erro <= data_b[expoente_calculo];
+            end
+            else
+            begin
+                mantissa_a <= mantissa_a >> expoente_calculo;
+                 //erro <= data_a[expoente_calculo];
+            end
+            end
+        end
+        2'd2 : begin //SOMA
+            mantissa_soma <= mantissa_a + mantissa_b;   
+        
+        end
+        2'd3 : begin //AJUSTE DOS ERROS
+        
             if(mantissa_soma[24] == 1'b1)
             begin
                 expoente_o <= expoente_o + 1'd1;
