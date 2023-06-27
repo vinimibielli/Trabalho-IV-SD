@@ -115,7 +115,14 @@ begin
                     end
                     else
                     begin
+                        if(op == 1'b1)
+                        begin
                         sinal_o <= ~data_b[31];
+                        end
+                        else
+                        begin
+                        sinal_o <= data_b[31];
+                        end
                     end
             end
             else if(complemento == 1'b0)
@@ -154,9 +161,6 @@ begin
                 end
             end
                 end
-        end
-        2'd2 : begin //SOMA
-                
                 if(expoente_calculo > 8'd24)
                 begin
                     erro <= 1'b0;
@@ -175,6 +179,27 @@ begin
                 end
             end
                 end
+        end
+        2'd2 : begin //SOMA
+                
+            //     if(expoente_calculo > 8'd24)
+            //     begin
+            //         erro <= 1'b0;
+            //     end
+            //     else
+            //     begin
+            // if(complemento == 1'b1)
+            // begin
+            //     if(expoente_a > expoente_b)
+            //     begin
+            //         erro <= mantissa_b_inv[expoente_calculo_1];
+            //     end
+            //     else
+            //     begin
+            //         erro <= mantissa_a_inv[expoente_calculo_1];
+            //     end
+            // end
+            //     end
               if(expoente_a > expoente_b)
             begin
                 expoente_o <= data_a[30:23];

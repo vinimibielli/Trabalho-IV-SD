@@ -4,7 +4,6 @@ add wave -noupdate -divider {TOP}
 add wave -noupdate /tb/DUT/reset
 add wave -noupdate /tb/DUT/clock
 add wave -noupdate /tb/DUT/start
-add wave -noupdate /tb/DUT/start_ed
 add wave -noupdate /tb/DUT/EA
 add wave -noupdate /tb/DUT/count
 add wave -noupdate /tb/DUT/data_a
@@ -27,8 +26,6 @@ add wave -noupdate -divider {SAÍDA}
 add wave -noupdate /tb/DUT/data_o
 add wave -noupdate /tb/DUT/busy
 add wave -noupdate /tb/DUT/ready
-add wave -noupdate /tb/DUT/complemento
-add wave -noupdate /tb/DUT/expoente_calculo_1
 
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ns} 0}

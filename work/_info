@@ -9,7 +9,7 @@ z2
 cModel Technology
 Z0 dC:/Users/Pichau/Downloads/Trabalho-IV-SD
 vedge_detector
-Z1 !s110 1687873399
+Z1 !s110 1687878215
 !i10b 1
 !s100 aUV^@CX:@U=RhVBk^L9_C0
 IzX4g8=DbQDN_[=i;3oH2^1
@@ -23,7 +23,7 @@ Z3 OV;L;10.5b;63
 r1
 !s85 0
 31
-Z4 !s108 1687873399.000000
+Z4 !s108 1687878215.000000
 !s107 edge_detector.v|
 !s90 -reportprogress|300|-work|work|edge_detector.v|
 !i113 1
@@ -32,11 +32,11 @@ Z6 tCvgOpt 0
 vtb
 R1
 !i10b 1
-!s100 `>Y7d@mV8UMhQARHgil8;0
-I^>?f;g8Z8UgM]]8l0?iEj1
+!s100 Hm2WTW3HE]@N5B;0Y8m0I1
+IYCf4FfQPB??2HC:mWOiKU2
 R2
 R0
-w1687868836
+w1687878211
 8tb.v
 Ftb.v
 L0 3
@@ -53,11 +53,11 @@ R6
 vtop
 R1
 !i10b 1
-!s100 gc>hTW^f;Hi@oGXc9<k423
-I>>l`?Lg6@;mKNV44<?4jZ1
+!s100 E>Y4?e^JdTD20fQ<ZQbaa1
+IK]]^:I;TY@o3HSC0SFV3Q1
 R2
 R0
-w1687873397
+w1687877966
 8top.v
 Ftop.v
 L0 1
