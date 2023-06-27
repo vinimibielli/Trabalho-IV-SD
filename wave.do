@@ -9,10 +9,12 @@ add wave -noupdate /tb/DUT/EA
 add wave -noupdate /tb/DUT/count
 add wave -noupdate /tb/DUT/data_a
 add wave -noupdate /tb/DUT/data_b
+add wave -noupdate /tb/DUT/op
 add wave -noupdate -divider {DADOS}
 add wave -noupdate /tb/DUT/mantissa_a
+add wave -noupdate /tb/DUT/mantissa_a_inv_wire
 add wave -noupdate /tb/DUT/mantissa_b
-add wave -noupdate /tb/DUT/mantissa_b_inv
+add wave -noupdate /tb/DUT/mantissa_b_inv_wire
 add wave -noupdate /tb/DUT/expoente_a
 add wave -noupdate /tb/DUT/expoente_b
 add wave -noupdate /tb/DUT/expoente_calculo
@@ -23,7 +25,10 @@ add wave -noupdate /tb/DUT/expoente_o
 add wave -noupdate /tb/DUT/sinal_o
 add wave -noupdate -divider {SAÍDA}
 add wave -noupdate /tb/DUT/data_o
+add wave -noupdate /tb/DUT/busy
+add wave -noupdate /tb/DUT/ready
 add wave -noupdate /tb/DUT/complemento
+add wave -noupdate /tb/DUT/expoente_calculo_1
 
 TreeUpdate [SetDefaultTree]
 WaveRestoreCursors {{Cursor 1} {0 ns} 0}
@@ -42,4 +47,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 ns} {300 ns}
+WaveRestoreZoom {0 ns} {1800 ns}

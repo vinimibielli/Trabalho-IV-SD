@@ -15,7 +15,10 @@ reg [1:0] count;
 //reg erro;
 reg sinal_o;
 wire complemento;
-wire erro;
+reg erro;
+reg [23:0] mantissa_a_inv, mantissa_b_inv;
+wire [23:0] mantissa_b_inv_wire, mantissa_a_inv_wire;
+wire [7:0] expoente_calculo_1;
 
 //--------------------------------------//
 //         MÁQUINA DE ESTADOS           //
@@ -48,7 +51,7 @@ begin
                 end
             end
             2'd2 : begin
-                if(start == 1'b1)
+                if(ready == 1'b1)
                 begin
                     EA <= 2'd0;
                 end
@@ -86,74 +89,119 @@ begin
         2'd0 : begin //COLOCANDO O VALOR NOS REGISTRADORES
             mantissa_a <= data_a[22:0];
             mantissa_b <= data_b[22:0];
-            expoente_a <= data_a[30:23];
-            expoente_b <= data_b[30:23];
-            if(expoente_a > 127)
+            expoente_a <= data_a[30:23] - 127;
+            expoente_b <= data_b[30:23] - 127;
+            if(expoente_a < 8'd127)
             begin
                 mantissa_a[23] <= 1'b1;
             end
             else
             begin
-                mantissa_a[23] <= 1'b0;
+                mantissa_a[23] <= 1'b1;
             end
-            if(expoente_b > 127)
+            if(expoente_b < 8'd127)
             begin
                 mantissa_b[23] <= 1'b1;
             end
             else
             begin
-                mantissa_b[23] <= 1'b0;
+                mantissa_b[23] <= 1'b1;
             end
             if(complemento == 1'b1)
             begin   
-                    if(mantissa_a > mantissa_b)
+                    if(expoente_a > expoente_b)
                     begin
                         sinal_o <= data_a[31];
                     end
                     else
                     begin
-                        sinal_o <= data_b[31];
+                        sinal_o <= ~data_b[31];
                     end
             end
             else if(complemento == 1'b0)
             begin           
             sinal_o <= data_a[31];
             end
+            mantissa_b_inv <= ~mantissa_b + 1'b1;
+            mantissa_a_inv <= ~mantissa_a + 1'b1;
+            
         end
         2'd1 : begin //EXECUÇÃO DA PRÉ-SOMA
-            if(complemento == 1'b1)
-            begin
-                if(expoente_a > expoente_b)
-                begin
-                    mantissa_b <= (~mantissa_b + 1'b1) >> expoente_calculo;
-                   // erro <= data_b[expoente_calculo];
-                end
-                else
-                begin
-                    mantissa_a <= (~mantissa_a + 1'b1) >> expoente_calculo;
-                    //erro <= data_a[expoente_calculo];
-                end
-            end
-            else
-            begin
+            
             if(expoente_a > expoente_b)
             begin
                 mantissa_b <= mantissa_b >> expoente_calculo;
-                //erro <= data_b[expoente_calculo];
             end
             else
             begin
                 mantissa_a <= mantissa_a >> expoente_calculo;
-                 //erro <= data_a[expoente_calculo];
             end
+            if(expoente_calculo > 8'd24)
+                begin
+                    erro <= 1'b0;
+                end
+                else
+                begin
+            if(complemento == 1'b0)
+            begin
+                if(expoente_a > expoente_b)
+                begin
+                    erro <= mantissa_b[expoente_calculo_1];
+                end
+                else
+                begin
+                    erro <= mantissa_a[expoente_calculo_1];
+                end
             end
+                end
         end
         2'd2 : begin //SOMA
-            mantissa_soma <= mantissa_a + mantissa_b;   
-        
+                
+                if(expoente_calculo > 8'd24)
+                begin
+                    erro <= 1'b0;
+                end
+                else
+                begin
+            if(complemento == 1'b1)
+            begin
+                if(expoente_a > expoente_b)
+                begin
+                    erro <= mantissa_b_inv[expoente_calculo_1];
+                end
+                else
+                begin
+                    erro <= mantissa_a_inv[expoente_calculo_1];
+                end
+            end
+                end
+              if(expoente_a > expoente_b)
+            begin
+                expoente_o <= data_a[30:23];
+            end
+            else
+            begin
+                expoente_o <= data_b[30:23];
+            end  
+            if(complemento == 1'b1)
+                begin
+                    if(expoente_a > expoente_b)
+                    begin
+                        mantissa_soma <= mantissa_a + mantissa_b_inv_wire;
+                    end
+                    else
+                    begin
+                        mantissa_soma <= mantissa_a_inv_wire + mantissa_b;
+                    end
+                    mantissa_soma[24] <= 1'b0;
+                end
+                else
+                begin
+                    mantissa_soma <= mantissa_a + mantissa_b;
+                end 
         end
         2'd3 : begin //AJUSTE DOS ERROS
-        
+            
             if(mantissa_soma[24] == 1'b1)
             begin
                 expoente_o <= expoente_o + 1'd1;
@@ -179,14 +227,7 @@ begin
                     mantissa_o <= mantissa_soma[22:0] + erro;
                 end
             end
-            if(expoente_a > expoente_b)
-            begin
-                expoente_o <= expoente_a;
-            end
-            else
-            begin
-                expoente_o <= expoente_b;
-            end 
+           
         end
         endcase
     end
@@ -199,6 +240,9 @@ assign expoente_calculo = (expoente_a > expoente_b) ? (expoente_a - expoente_b) 
 assign busy = (EA == 2'd1) ? 1'b1 : 1'b0;
 assign ready = (EA == 2'd2) ? 1'b1 : 1'b0;
 assign complemento = ((op == 1'b1 && data_a[31] == data_b[31]) || (op == 1'b0 && data_a[31] != data_b[31])) ? 1'b1 : 1'b0;
-assign erro = (expoente_a > expoente_b) ? mantissa_b[expoente_calculo] : mantissa_a[expoente_calculo];
+assign mantissa_b_inv_wire = (mantissa_b_inv[expoente_calculo_1] == 1'b1 && expoente_calculo < 8'd24) ? ~mantissa_b + 1'b1 : ~mantissa_b;
+assign mantissa_a_inv_wire = (mantissa_a_inv[expoente_calculo_1] == 1'b1 && expoente_calculo < 8'd24) ? ~mantissa_a + 1'b1 : ~mantissa_a;
+assign expoente_calculo_1 = expoente_calculo - 8'd1;
+
 
 endmodule
